@@ -1,0 +1,407 @@
+/* ============================================================
+   TABLE TENNIS — ARCADE EDITION
+   Dark neon arcade theme
+   ============================================================ */
+
+/* ---------- Reset & Base ---------- */
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Orbitron', 'Inter', sans-serif;
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1a 70%, #050510 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* ---------- Utility ---------- */
+.hidden {
+    display: none !important;
+}
+
+/* ============================================================
+   OVERLAYS  (Start / Pause / Game Over)
+   ============================================================ */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 16, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.overlay-content {
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+}
+
+/* ---------- Game Title ---------- */
+.game-title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #00f0ff, #ff00e5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    text-shadow: none;
+}
+
+.game-subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 6px;
+    color: #888;
+    margin-bottom: 36px;
+}
+
+/* ---------- Pause / Game Over titles ---------- */
+.pause-title,
+.gameover-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 24px;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.final-score {
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: #00f0ff;
+    margin-bottom: 12px;
+    letter-spacing: 8px;
+}
+
+/* ---------- Option groups ---------- */
+.option-group {
+    margin-bottom: 20px;
+}
+
+.option-label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.toggle-group {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+.toggle-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+}
+
+.toggle-btn:hover {
+    border-color: #555;
+    color: #ccc;
+}
+
+.toggle-btn.active {
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(255, 0, 229, 0.15));
+    border-color: #00f0ff;
+    color: #00f0ff;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+/* ---------- Action buttons ---------- */
+.action-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    transition: all 0.25s ease;
+    background: linear-gradient(135deg, #00f0ff, #0080ff);
+    color: #0a0a1a;
+    box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(0, 240, 255, 0.45);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+.action-btn.secondary {
+    background: rgba(255, 255, 255, 0.06);
+    color: #888;
+    box-shadow: none;
+    border: 1px solid #333;
+}
+
+.action-btn.secondary:hover {
+    color: #ccc;
+    border-color: #555;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+}
+
+/* ---------- High score ---------- */
+.high-score-display {
+    margin-top: 24px;
+    font-size: 0.7rem;
+    color: #ffd700;
+    letter-spacing: 2px;
+}
+
+/* ============================================================
+   GAME CONTAINER
+   ============================================================ */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ---------- HUD ---------- */
+#hud {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 800px;
+    max-width: 95vw;
+    padding: 10px 0;
+}
+
+.hud-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.hud-name {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: #666;
+}
+
+.hud-left .hud-score {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #00f0ff;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.hud-right .hud-score {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #ff00e5;
+    text-shadow: 0 0 20px rgba(255, 0, 229, 0.5);
+}
+
+.hud-center {
+    font-size: 1rem;
+    color: #444;
+    letter-spacing: 4px;
+}
+
+/* ---------- Table ---------- */
+#ping-pong-table {
+    width: 800px;
+    height: 500px;
+    max-width: 95vw;
+    position: relative;
+    background: linear-gradient(180deg, #0d2818 0%, #0a1f14 50%, #071a10 100%);
+    border: 3px solid #1a5c2e;
+    border-radius: 10px;
+    box-shadow:
+        0 0 30px rgba(0, 255, 100, 0.08),
+        inset 0 0 60px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+/* ---------- Center line ---------- */
+#center-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.25) 0px,
+        rgba(255, 255, 255, 0.25) 14px,
+        transparent 14px,
+        transparent 28px
+    );
+    transform: translateX(-50%);
+}
+
+/* ---------- Center circle ---------- */
+#center-circle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ---------- Paddles ---------- */
+.paddle {
+    width: 14px;
+    height: 80px;
+    position: absolute;
+    border-radius: 7px;
+    transition: top 0.02s linear;
+}
+
+#paddle-left {
+    left: 12px;
+    background: linear-gradient(180deg, #00f0ff, #0080ff);
+    box-shadow:
+        0 0 14px rgba(0, 240, 255, 0.6),
+        0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+#paddle-right {
+    right: 12px;
+    background: linear-gradient(180deg, #ff00e5, #ff6600);
+    box-shadow:
+        0 0 14px rgba(255, 0, 229, 0.6),
+        0 0 30px rgba(255, 0, 229, 0.2);
+}
+
+/* Paddle hit flash animation */
+.paddle.hit {
+    animation: paddleHit 0.15s ease;
+}
+
+@keyframes paddleHit {
+    0%   { transform: scaleY(1); filter: brightness(1); }
+    50%  { transform: scaleY(0.85); filter: brightness(2); }
+    100% { transform: scaleY(1); filter: brightness(1); }
+}
+
+/* ---------- Ball ---------- */
+#ball {
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle at 35% 35%, #fff, #c8ff00);
+    border-radius: 50%;
+    position: absolute;
+    box-shadow:
+        0 0 10px rgba(200, 255, 0, 0.8),
+        0 0 25px rgba(200, 255, 0, 0.4),
+        0 0 50px rgba(200, 255, 0, 0.15);
+    z-index: 10;
+}
+
+/* Ball pulse animation */
+#ball.pulse {
+    animation: ballPulse 0.2s ease;
+}
+
+@keyframes ballPulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.4); filter: brightness(2); }
+    100% { transform: scale(1); }
+}
+
+/* ---------- Score flash ---------- */
+.score-flash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+    z-index: 20;
+    animation: flashScore 0.6s ease forwards;
+}
+
+@keyframes flashScore {
+    0%   { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    50%  { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(2); }
+}
+
+/* ---------- Controls bar ---------- */
+#controls-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    max-width: 95vw;
+    padding: 6px 10px;
+}
+
+.control-hint {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    color: #555;
+    letter-spacing: 1px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 850px) {
+    #ping-pong-table {
+        width: 95vw;
+        height: 60vw;
+    }
+    #hud, #controls-bar {
+        width: 95vw;
+    }
+    .game-title {
+        font-size: 1.6rem;
+    }
+    .hud-left .hud-score,
+    .hud-right .hud-score {
+        font-size: 2rem;
+    }
+}

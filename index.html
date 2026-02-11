@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Tennis — Arcade</title>
+    <meta name="description" content="A retro-arcade table tennis game with AI opponent, difficulty levels, and sound effects.">
+    <!-- Google Font: Orbitron (retro-arcade) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==================== START SCREEN ==================== -->
+    <div id="start-screen" class="overlay">
+        <div class="overlay-content">
+            <h1 class="game-title">🏓 TABLE TENNIS</h1>
+            <p class="game-subtitle">ARCADE EDITION</p>
+
+            <!-- Mode Selection -->
+            <div class="option-group">
+                <label class="option-label">MODE</label>
+                <div class="toggle-group" id="mode-toggle">
+                    <button class="toggle-btn active" data-value="1P">1 PLAYER</button>
+                    <button class="toggle-btn" data-value="2P">2 PLAYER</button>
+                </div>
+            </div>
+
+            <!-- Difficulty Selection -->
+            <div class="option-group">
+                <label class="option-label">DIFFICULTY</label>
+                <div class="toggle-group" id="difficulty-toggle">
+                    <button class="toggle-btn" data-value="easy">EASY</button>
+                    <button class="toggle-btn active" data-value="medium">MEDIUM</button>
+                    <button class="toggle-btn" data-value="hard">HARD</button>
+                </div>
+            </div>
+
+            <button id="start-btn" class="action-btn">START GAME</button>
+
+            <div class="high-score-display">
+                🏆 HIGH SCORE: <span id="high-score-value">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAUSE OVERLAY ==================== -->
+    <div id="pause-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <h2 class="pause-title">⏸ PAUSED</h2>
+            <button id="resume-btn" class="action-btn">RESUME</button>
+            <button id="quit-btn" class="action-btn secondary">QUIT TO MENU</button>
+        </div>
+    </div>
+
+    <!-- ==================== GAME OVER OVERLAY ==================== -->
+    <div id="gameover-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <h2 class="gameover-title" id="winner-text">PLAYER 1 WINS!</h2>
+            <p class="final-score" id="final-score-text">7 — 3</p>
+            <div class="high-score-display">
+                🏆 HIGH SCORE: <span id="gameover-high-score">0</span>
+            </div>
+            <button id="play-again-btn" class="action-btn">PLAY AGAIN</button>
+            <button id="menu-btn" class="action-btn secondary">MAIN MENU</button>
+        </div>
+    </div>
+
+    <!-- ==================== GAME CONTAINER ==================== -->
+    <div id="game-container" class="hidden">
+
+        <!-- HUD — scores & info -->
+        <div id="hud">
+            <div class="hud-player hud-left">
+                <span class="hud-name" id="p1-name">PLAYER 1</span>
+                <span class="hud-score" id="p1-score">0</span>
+            </div>
+            <div class="hud-center">
+                <span class="hud-vs">VS</span>
+            </div>
+            <div class="hud-player hud-right">
+                <span class="hud-name" id="p2-name">Computer</span>
+                <span class="hud-score" id="p2-score">0</span>
+            </div>
+        </div>
+
+        <!-- The Table -->
+        <div id="ping-pong-table">
+            <!-- Center dashed line -->
+            <div id="center-line"></div>
+            <!-- Center circle -->
+            <div id="center-circle"></div>
+
+            <!-- Paddles -->
+            <div id="paddle-left" class="paddle"></div>
+            <div id="paddle-right" class="paddle"></div>
+
+            <!-- Ball -->
+            <div id="ball"></div>
+
+            <!-- Score flash (appears briefly on score) -->
+            <div id="score-flash" class="score-flash hidden"></div>
+        </div>
+
+        <!-- Controls legend -->
+        <div id="controls-bar">
+            <span class="control-hint" id="p1-controls">🅿1: W / S or Mouse</span>
+            <span class="control-hint">⏸ ESC: Pause</span>
+            <span class="control-hint" id="p2-controls">🅿2: ↑ / ↓</span>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+
+</body>
+</html>
