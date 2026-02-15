@@ -608,3 +608,5 @@ document.addEventListener("DOMContentLoaded", () => {
     loadHighScore();
 
 });
+
+// here the game end 
